@@ -18,14 +18,20 @@ jobs:
 
     - name: Get dependencies
       run: |
-        cd hello-world
-        go get -v -t -d ./...
-        if [ -f Gopkg.toml ]; then
-            curl https://raw.githubusercontent.com/golang/dep/master/install.sh | sh
-            dep ensure
-        fi
+        for dir in */ ; do
+          cd ${dir}
+          go get -v -t -d ./...
+          if [ -f Gopkg.toml ]; then
+              curl https://raw.githubusercontent.com/golang/dep/master/install.sh | sh
+              dep ensure
+          fi
+          cd ..
+        done
 
     - name: Build
       run: |
-        cd hello-world
-        go build -v .
+        for dir in */ ; do
+          cd ${dir}
+          go build -v .
+          cd ..
+        done
