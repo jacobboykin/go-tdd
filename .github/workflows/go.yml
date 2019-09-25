@@ -7,8 +7,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
 
-    working-directory: hello-world
-
     - name: Set up Go 1.12
       uses: actions/setup-go@v1
       with:
@@ -20,6 +18,7 @@ jobs:
 
     - name: Get dependencies
       run: |
+        cd hello-world
         go get -v -t -d ./...
         if [ -f Gopkg.toml ]; then
             curl https://raw.githubusercontent.com/golang/dep/master/install.sh | sh
@@ -27,4 +26,6 @@ jobs:
         fi
 
     - name: Build
-      run: go build -v .
+      run: |
+        cd hello-world
+        go build -v .
