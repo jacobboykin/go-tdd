@@ -7,6 +7,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
 
+    working-directory: hello-world
+
     - name: Set up Go 1.12
       uses: actions/setup-go@v1
       with:
